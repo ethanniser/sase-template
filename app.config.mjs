@@ -4,6 +4,12 @@ import { createApp } from "vinxi";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default createApp({
+  server: {
+    preset: "vercel-edge",
+    // prerender: {
+    //   routes: ["/"],
+    // },
+  },
   routers: [
     {
       name: "public",
@@ -13,9 +19,9 @@ export default createApp({
     },
     {
       name: "client",
-      type: "spa",
-      handler: "./index.html",
-      base: "/",
+      type: "client",
+      handler: "./client/entry-client.tsx",
+      base: "/_build",
       target: "browser",
       plugins: () => [
         tsconfigPaths(),
@@ -25,6 +31,13 @@ export default createApp({
         }),
         viteReact(),
       ],
+    },
+    {
+      name: "server",
+      type: "http",
+      base: "/",
+      handler: "./client/entry-server.tsx",
+      plugins: () => [tsconfigPaths()],
     },
     {
       name: "server",
