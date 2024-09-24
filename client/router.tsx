@@ -5,6 +5,7 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
+import { SuperJSON } from "superjson";
 import { routeTree } from "./routeTree.gen";
 
 declare module "@tanstack/react-router" {
@@ -22,6 +23,7 @@ export function createRouter() {
 
   return createTanStackRouter({
     routeTree,
+    transformer: SuperJSON,
     // Optionally provide your loaderClient to the router context for
     // convenience (you can provide anything you want to the router
     // context!)

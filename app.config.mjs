@@ -5,7 +5,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default createApp({
   server: {
-    preset: "vercel-edge",
+    // preset: "vercel-edge",
     // prerender: {
     //   crawlLinks: true,
     //   routes: ["/"],
