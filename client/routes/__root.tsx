@@ -1,33 +1,38 @@
-import { createRootRoute, Link, Outlet, ScrollRestoration } from "@tanstack/react-router";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import {
+  createRootRoute,
+  Link,
+  Outlet,
+  ScrollRestoration,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { Body, Head, Html, Meta, Scripts } from '@tanstack/start'
+import { Body, Head, Html, Meta, Scripts } from "@tanstack/start";
 
 // This is the base of our router
 export const Route = createRootRoute({
   meta: () => [
     {
-      charSet: 'utf-8',
+      charSet: "utf-8",
     },
     {
-      name: 'viewport',
-      content: 'width=device-width, initial-scale=1',
+      name: "viewport",
+      content: "width=device-width, initial-scale=1",
     },
     {
-      title: 'TanStack Start Starter',
+      title: "TanStack Start Starter",
     },
     {
-      rel: 'icon',
-      href: '/favicon.ico'
+      rel: "icon",
+      href: "/favicon.ico",
     },
   ],
-  component: RootComponent
+  component: RootComponent,
 });
 
 function RootComponent() {
   return (
     <RootDocument>
-            <div className="flex gap-2 p-2">
+      <div className="flex gap-2 p-2">
         <Link to="/" className="[&.active]:font-bold">
           Home
         </Link>{" "}
@@ -40,7 +45,7 @@ function RootComponent() {
       <TanStackRouterDevtools />
       <ReactQueryDevtools />
     </RootDocument>
-  )
+  );
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
@@ -48,7 +53,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     <Html>
       <Head>
         <Meta />
-        <script src="/_build/client/entry-client.tsx" type="module"></script>
       </Head>
       <Body>
         {children}
@@ -56,5 +60,5 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Scripts />
       </Body>
     </Html>
-  )
+  );
 }

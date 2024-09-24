@@ -37,7 +37,7 @@ export default createApp({
       type: "http",
       base: "/",
       handler: "./server/entry-server.ts",
-      plugins: () => [tsconfigPaths()],
+      plugins: () => [tsconfigPaths(), viteReact()],
     },
   ],
 });
