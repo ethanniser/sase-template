@@ -2,16 +2,13 @@
 import { createMemoryHistory } from "@tanstack/react-router";
 import { StartServer } from "@tanstack/start/server";
 import ReactDOMServer from "react-dom/server";
-import { eventHandler, getRequestURL } from "vinxi/http";
-import { createRouter } from "./router";
+import { createRouter } from "../client/router";
 
-export default eventHandler(async (event) => {
+export async function renderSsr(url: URL) {
   const router = createRouter();
 
-  const url = getRequestURL(event).toString();
-
   const memoryHistory = createMemoryHistory({
-    initialEntries: [url],
+    initialEntries: [url.pathname],
   });
 
   router.update({
@@ -30,4 +27,4 @@ export default eventHandler(async (event) => {
     },
     status: router.hasNotFoundMatch() ? 404 : 200,
   });
-});
+};

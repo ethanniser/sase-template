@@ -1,11 +1,28 @@
-import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
+import { createRootRoute, Link, Outlet, ScrollRestoration } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+import { Body, Head, Html, Meta, Scripts } from '@tanstack/start'
 
 // This is the base of our router
 export const Route = createRootRoute({
-  component: () => (
-    <>
-      <div className="flex gap-2 p-2">
+  meta: () => [
+    {
+      charSet: 'utf-8',
+    },
+    {
+      name: 'viewport',
+      content: 'width=device-width, initial-scale=1',
+    },
+    {
+      title: 'TanStack Start Starter',
+    },
+  ],
+  component: RootComponent
+});
+
+function RootComponent() {
+  return (
+    <RootDocument>
+            <div className="flex gap-2 p-2">
         <Link to="/" className="[&.active]:font-bold">
           Home
         </Link>{" "}
@@ -16,6 +33,21 @@ export const Route = createRootRoute({
       <hr />
       <Outlet />
       <TanStackRouterDevtools />
-    </>
-  ),
-});
+    </RootDocument>
+  )
+}
+
+function RootDocument({ children }: { children: React.ReactNode }) {
+  return (
+    <Html>
+      <Head>
+        <Meta />
+      </Head>
+      <Body>
+        {children}
+        <ScrollRestoration />
+        <Scripts />
+      </Body>
+    </Html>
+  )
+}
