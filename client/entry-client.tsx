@@ -5,4 +5,7 @@ import "./index.css";
 
 const router = createRouter();
 
-ReactDOM.hydrateRoot(document, <StartClient router={router} />);
+ReactDOM.hydrateRoot(
+  document.getElementById("root")!,
+  <StartClient router={router} />,
+);

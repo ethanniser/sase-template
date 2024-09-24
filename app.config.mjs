@@ -7,6 +7,7 @@ export default createApp({
   server: {
     preset: "vercel-edge",
     // prerender: {
+    //   crawlLinks: true,
     //   routes: ["/"],
     // },
   },
@@ -40,7 +41,7 @@ export default createApp({
       plugins: () => [tsconfigPaths()],
     },
     {
-      name: "server",
+      name: "ssr",
       type: "http",
       base: "/",
       handler: "./server/ssr.tsx",
