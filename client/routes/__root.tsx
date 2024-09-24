@@ -1,5 +1,6 @@
 import { createRootRoute, Link, Outlet, ScrollRestoration } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Body, Head, Html, Meta, Scripts } from '@tanstack/start'
 
 // This is the base of our router
@@ -14,6 +15,10 @@ export const Route = createRootRoute({
     },
     {
       title: 'TanStack Start Starter',
+    },
+    {
+      rel: 'icon',
+      href: '/favicon.ico'
     },
   ],
   component: RootComponent
@@ -33,6 +38,7 @@ function RootComponent() {
       <hr />
       <Outlet />
       <TanStackRouterDevtools />
+      <ReactQueryDevtools />
     </RootDocument>
   )
 }
@@ -42,6 +48,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     <Html>
       <Head>
         <Meta />
+        <script src="/_build/client/entry-client.tsx" type="module"></script>
       </Head>
       <Body>
         {children}

@@ -3,6 +3,7 @@ import { createMemoryHistory } from "@tanstack/react-router";
 import { StartServer } from "@tanstack/start/server";
 import ReactDOMServer from "react-dom/server";
 import { createRouter } from "../client/router";
+import "@client/index.css";
 
 export async function renderSsr(url: URL) {
   const router = createRouter();

@@ -36,7 +36,7 @@ export default createApp({
       name: "server",
       type: "http",
       base: "/",
-      handler: "./client/entry-server.tsx",
+      handler: "./server/entry-server.ts",
       plugins: () => [tsconfigPaths()],
     },
   ],
