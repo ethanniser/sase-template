@@ -7,6 +7,14 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { Body, Head, Html, Meta, Scripts } from "@tanstack/start";
+import { createAssets } from "@vinxi/react";
+import { Suspense } from "react";
+import { getManifest } from "vinxi/manifest";
+
+const Assets = createAssets(
+  getManifest("client").handler,
+  getManifest("client"),
+);
 
 // This is the base of our router
 export const Route = createRootRoute({
@@ -53,6 +61,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     <Html>
       <Head>
         <Meta />
+        <Suspense>
+          <Assets />
+        </Suspense>
       </Head>
       <Body>
         {children}
