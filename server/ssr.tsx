@@ -1,6 +1,5 @@
 import { createMemoryHistory } from "@tanstack/react-router";
 import { StartServer } from "@tanstack/start/server";
-import { renderAsset } from "@vinxi/react";
 import ReactDOMServer from "react-dom/server";
 import { eventHandler, getRequestURL } from "vinxi/http";
 import { getManifest } from "vinxi/manifest";
@@ -10,11 +9,8 @@ export default eventHandler(async (event) => {
   const router = createRouter();
 
   const clientManifest = getManifest("client");
-
   const clientHandler = clientManifest.inputs[clientManifest.handler];
   const scriptSrc = clientHandler.output.path;
-  const assets = await clientHandler.assets();
-  // todo: what is this for? do I need it? https://github.com/devagrawal09/react-start/blob/master/src/server.tsx#L27
 
   const url = getRequestURL(event);
 

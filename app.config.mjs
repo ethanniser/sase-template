@@ -1,6 +1,7 @@
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import { createApp } from "vinxi";
+import { config } from "vinxi/plugins/config";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default createApp({
@@ -31,6 +32,7 @@ export default createApp({
           generatedRouteTree: "./client/routeTree.gen.ts",
         }),
         viteReact(),
+        config("client", {}),
       ],
     },
     {
@@ -38,14 +40,14 @@ export default createApp({
       type: "http",
       base: "/api",
       handler: "./server/entry-server.ts",
-      plugins: () => [tsconfigPaths()],
+      plugins: () => [tsconfigPaths(), config("server", {})],
     },
     {
       name: "ssr",
       type: "http",
       base: "/",
       handler: "./server/ssr.tsx",
-      plugins: () => [tsconfigPaths()],
+      plugins: () => [tsconfigPaths(), config("ssr", {})],
     },
   ],
 });
