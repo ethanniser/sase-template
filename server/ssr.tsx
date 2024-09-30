@@ -1,11 +1,10 @@
-// src/entry-server.tsx
 import { createMemoryHistory } from "@tanstack/react-router";
 import { StartServer } from "@tanstack/start/server";
+import { renderAsset } from "@vinxi/react";
 import ReactDOMServer from "react-dom/server";
-import { createRouter } from "../client/router";
-import "@client/index.css";
 import { eventHandler, getRequestURL } from "vinxi/http";
 import { getManifest } from "vinxi/manifest";
+import { createRouter } from "../client/router";
 
 export default eventHandler(async (event) => {
   const router = createRouter();
@@ -14,6 +13,8 @@ export default eventHandler(async (event) => {
 
   const clientHandler = clientManifest.inputs[clientManifest.handler];
   const scriptSrc = clientHandler.output.path;
+  const assets = await clientHandler.assets();
+  // todo: what is this for? do I need it? https://github.com/devagrawal09/react-start/blob/master/src/server.tsx#L27
 
   const url = getRequestURL(event);
 
@@ -27,6 +28,9 @@ export default eventHandler(async (event) => {
 
   await router.load();
 
+  const base =
+    import.meta.env.BASE_URL === "/" ? undefined : import.meta.env.BASE_URL;
+
   const stream = await new Promise<ReactDOMServer.PipeableStream>((resolve) => {
     const stream = ReactDOMServer.renderToPipeableStream(
       <StartServer router={router} />,
@@ -35,9 +39,10 @@ export default eventHandler(async (event) => {
           resolve(stream);
         },
         bootstrapModules: [scriptSrc],
-        bootstrapScriptContent: `window.manifest = ${JSON.stringify(
-          clientManifest.json(),
-        )}`,
+        bootstrapScriptContent: `
+          window.manifest = ${JSON.stringify(clientManifest.json())}
+          window.base = ${JSON.stringify(base)}
+        `,
       },
     );
   });
